@@ -1,8 +1,4 @@
-{% extends 'base.html'%}
 
-{% block content%}
-
-<h1> pofile page .......</h1>
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}{{post.title_tag}}{% endblock %}
@@ -34,7 +30,7 @@
 			<br><br>
 			<form action="{% url 'like_post' post.pk %}" method="POST">
 					{% csrf_token%}
-
+			</form>
 			{% if user.is_authenticated %}
 				{% if liked %}
 <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger btn-sm">Unlike</button> 
@@ -49,14 +45,14 @@ PLEASE LOG IN TO LIKE  THIS POST	<a href="{% url 'login'%}">LOGIN</a>
 -- {{total_likes}}&nbsp;&nbsp;LIKES
 </form>
 <br><br>
-	<img src="{{ post.author.profile.profile_pic.url}}" width="300" class="rounded-circle">
-	<div class="card mb-3" style="max-width: 1040px;">
+	<img src="{{ post.author.profile.profile_pic.url}}" width="100" class="rounded-circle">
+	<div class="card mb-3">
 		<div class="row no-gutters">
 			<div class="col-md-3">
 {% if  page_user.profile.profile_pic%}
-				<img src="{{ page_user.author.profile.profile_pic.url}}" width=300>
+				<img src="{{ page_user.author.profile.profile_pic.url}}" width=100>
 {% else %}
-				<img src="{% static 'theblog/image'/default_profile_pic.png' %}" class="card-img">
+				<img src="{% static 'theblog/image/default_profile_pic.jpg' %}" class="card-img">
 {% endif %}
 			</div>
 			<div class="col-md-10">
@@ -95,4 +91,5 @@ PLEASE LOG IN TO LIKE  THIS POST	<a href="{% url 'login'%}">LOGIN</a>
 		</div>
 	</div>
 {{page_user}}
-{% endblock'%}<#
+{% endif%}
+{% endblock%}
