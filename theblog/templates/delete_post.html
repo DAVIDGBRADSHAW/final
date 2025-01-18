@@ -5,7 +5,7 @@
 
 		{% block content %}
 
-{% if user.id_authenticated %}
+{% if user.is_authenticated %}
 		{% if user.id == post.author.id %}
 		<h1>DELETE POST MADE but u know u can edit it</h1>
 		<br><br>
@@ -22,11 +22,17 @@
 		</div>
 		
 			{% else %}
+			<br>
+			<br>
+	
 			please login
 			{% endif %}
 	{% else %}
-	please login
+<br>
+			<br>
+			<a href="{% url 'login'%}">LOGIN</a>
+	please log in
 	{% endif %}
-
+{% endblock%}
 		</body>
 		</html>

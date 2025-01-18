@@ -1,32 +1,27 @@
-
-{% extends 'base.html'%}
-
-
+{% extends 'base.html' %}
 {% block content %}
-
-
-<h1>POSTS</h1>
-
-	{{post.title}}
-
-	
-
-
-
-
-<br><br>
-		{{post.category}}|slugify
-
-
-{{ post.body}}
-{{ post.author.first_name}}&nbsp;{{post.author.last_name}} 
-<br><br>
- -{{post.post_datetime}}
-<br><br>
-
-
-
-</ul>
-
-
+  <h1>Posts</h1>
+  <!-- Display categories -->
+  <h2>Categories</h2>
+  <ul>
+    {% for category in cat_menu %}
+      <li>{{ category.name }}</li>
+    {% endfor %}
+  </ul>
+  <!-- Display posts -->
+  <h2>All Posts</h2>
+  <div>
+    {% for post in posts %}
+      <div class="post">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.body|truncatewords:20 }}</p> <!-- Limit to 20 words -->
+        <small>By {{ post.author }} on {{ post.post_date }}</small>
+        <a href="{% url 'article-detail' post.id %}">Read More</a>
+      </div>
+    {% endfor %}
+  </div>
+  <!-- If no posts exist -->
+  {% if not posts %}
+    <p>No posts available.</p>
+  {% endif %}
 {% endblock %}

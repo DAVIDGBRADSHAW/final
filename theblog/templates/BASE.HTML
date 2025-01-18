@@ -54,9 +54,10 @@
               </div>
             </li>
             <li class="nav-item">
-				<a class="nav-link" href="{%url 'login'%}">LOGIN</a>
+				<a class="nav-link" href="{%url 'login'%}">LOGIN</a>		{%else%}		<a class="nav-link" href="{% url 'logout'%}">LOGOUT</a>
+
 				<li class="nav-item"></li>
-        <a class="nav-link" href="{% url 'register'%}" >REG</a>
+        <a class="nav-link" href="{% url 'register'%}" >REGISTERED</a>
           
            
           {% endif %}
@@ -64,8 +65,10 @@
         {% if user.is_authenticated %}
           <ul class="navbar-nav ml-auto">
             <li class="navbar-item">
-              <a class="nav-item" href="#">
-                {{ user.first_name }} {{ user.last_name }}
+              <a class="nav-item" href="	<li class="nav-item"></li>
+				
+								
+                {{ user.first_name }}&nbsp; {{ user.last_name }}
               </a>
             </li>
           </ul>

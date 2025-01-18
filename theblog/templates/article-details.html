@@ -51,7 +51,7 @@ PLEASE LOG IN TO LIKE  THIS POST	<a href="{% url 'login'%}">LOGIN</a>
 <hr>
 <br>
 {% if not post.comments.all%}
-No COMMENTS- <a href="{% url 'add_comments' post.pk %}">ADD ONE</a> 
+  {%comment%}No COMMENTS- <a href="{% url 'add_comments' post.pk %}">ADD ONE</a> {%endcomment%}
 {% else %}
 <br><br>
 <a href="{% url 'add_comment' post.pk %}">ADD COMMENT</a>
@@ -71,13 +71,13 @@ No COMMENTS- <a href="{% url 'add_comments' post.pk %}">ADD ONE</a>
 
 	
 
-	<div class="card mb-3" style="max-width: 540px;">
+	<div class="card mb-3">
 		<div class="row no-gutters">
 			<div class="col-md-2">
 {% if  post.author.profile.profile_pic%}
 				<img src="{{ post.author.profile.profile_pic.url}}" width=300>
 {% else %}
-				<img src="{% static 'theblog/image'/default_profile_pic.png' %}" width=300 class="card-img">
+{% comment %}<img src="{% static 'theblog/image'/default_profile_pic.jpg' %}" width=300 class="card-img">-{% endcomment %}
 {% endif %}
 			</div>
 			<div class="col-md-10">
@@ -117,3 +117,4 @@ No COMMENTS- <a href="{% url 'add_comments' post.pk %}">ADD ONE</a>
 			</div>
 		</div>
 	</div>
+	{% endblock%}
