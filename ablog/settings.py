@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent # changed this
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,24 +78,23 @@ WSGI_APPLICATION = 'ablog.wsgi.application'
     #}
 #}
 
+#DATABASES = {
+ #  "default": {
+  #    "ENGINE": "django.db.backends.postgresql",
+   #     "NAME": "ucd",
+    #    "USER": "ucd_user",
+     #   "PASSWORD":"qyPsyjIhqHzf2vYIUqfDm6aKkrCXiGeY",
+      #  "HOST": "frankfurt-postgres.render.com",		
+      #  "PORT": "5432",
+    #}
+#}
+
 DATABASES = {
-   "default": {
-      "ENGINE": "django.db.backends.postgresql",
-        "NAME": "ucd",
-        "USER": "ucd_user",
-        "PASSWORD":"qyPsyjIhqHzf2vYIUqfDm6aKkrCXiGeY",
-        "HOST": "frankfurt-postgres.render.com",
-				
-        "PORT": "5432",
+    'default': {
+      'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db.sqlite3'
     }
 }
-
-#DATABASES = {
- #   'default': {
-  #    'ENGINE': 'django.db.backends.sqlite3',
-  #     'NAME': BASE_DIR / 'db.sqlite3'
-   # }
-#}
 
 
 # Password validation

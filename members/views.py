@@ -44,7 +44,7 @@ class PasswordsChangeView(PasswordChangeView):
 	success_url = reverse_lazy('password_success')
 	# OR success_url = reverse_lasy('home')
 
-def password_sucess(request):
+def password_success(request):
 	return render(request, 'registration/password_success.html',{})
 
 class UserRegisterView(generic.CreateView):
