@@ -1,0 +1,32 @@
+
+{% extends 'base.html'%}
+
+
+{% block content %}
+
+
+<h1>POSTS</h1>
+
+	{{post.title}}
+
+	
+
+
+
+
+<br><br>
+		{{post.category}}|slugify
+
+
+{{ post.body}}
+{{ post.author.first_name}}&nbsp;{{post.author.last_name}} 
+<br><br>
+ -{{post.post_datetime}}
+<br><br>
+
+
+
+</ul>
+
+
+{% endblock %}

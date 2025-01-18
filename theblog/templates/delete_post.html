@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+		{% block title %}
+	 DELETE UR BLOG POST
+		{% endblock %}
+
+		{% block content %}
+
+{% if user.id_authenticated %}
+		{% if user.id == post.author.id %}
+		<h1>DELETE POST MADE but u know u can edit it</h1>
+		<br><br>
+<h3> DELETE :{{post.title}}</h3>
+<br><br>
+		<div class="form-group">
+			<form method="POST">
+				{% csrf_token %}
+				<b>ARE U SURE U WANT TO DELETE BECAUSE U CAN EDIT</b>
+				<br><br>
+				<strong>ARE U SURE, IF YES THEN CLICK DELETE BELOW</strong>
+				<button class="btn btn-secondary">DELETE UR POST</button>
+			</form>
+		</div>
+		
+			{% else %}
+			please login
+			{% endif %}
+	{% else %}
+	please login
+	{% endif %}
+
+		</body>
+		</html>

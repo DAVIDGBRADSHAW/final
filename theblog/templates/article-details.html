@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{post.title_tag}}{% endblock %}
+	
+	{% block content %}
+	
+			<h1> {{post.title}}&nbsp;--&nbsp;</h1>
+			<small>BY: {{post.author.first_name}}&nbsp;{{post.author.last_name}}--
+				{{ post.post_date}}
+			</small>
+			<br><br>
+			{% if user.is_authenticated %}
+				{% if user.id == post.author.id %}
+						-<a href="{% url 'update_post' post.pk %}">EDIT</a>
+			<br><br>
+						-<a href="{% url 'delete_post'  post.pk %}">DELETE</a>
+			<br><br>
+					{% endif %}
+			{% endif %}
+			<br/>
+			{% if post.header_image %}
+				<img src="{{ post.header_image.url }}">
+			{% endif %}
+			<br><br>
+			{{post.body|safe}}</li>
+			<br>
+			<br>
+			<a href="{% url 'home'%}" class="btn btn-secondary">BACK</a>
+			<br><br>
+			<form action="{% url 'like_post' post.pk %}" method="POST">
+					{% csrf_token%}
+
+			{% if user.is_authenticated %}
+				{% if liked %}
+<button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger btn-sm">Unlike</button> 
+{% else %}
+<button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary btn-sm">Like</button> 
+
+{% endif%}
+{% else %}
+PLEASE LOG IN TO LIKE  THIS POST	<a href="{% url 'login'%}">LOGIN</a>
+
+
+{% endif %}
+
+-- {{total_likes}}&nbsp;&nbsp;LIKES
+</form>
+<br><br>
+<h2> COMMENTS</h2>
+<br>
+<hr>
+<br>
+{% if not post.comments.all%}
+No COMMENTS- <a href="{% url 'add_comments' post.pk %}">ADD ONE</a> 
+{% else %}
+<br><br>
+<a href="{% url 'add_comment' post.pk %}">ADD COMMENT</a>
+<br><br>
+	{% for comment in post.comments.all%}
+	<strong>
+		{{comment.name}} - 
+		<br>
+		{{coments.date_added}} -
+	</strong>
+		<br>
+		{{comment.body}}
+		{%endfor%}
+{%endif%}
+<br><br>
+
+
+	
+
+	<div class="card mb-3" style="max-width: 540px;">
+		<div class="row no-gutters">
+			<div class="col-md-2">
+{% if  post.author.profile.profile_pic%}
+				<img src="{{ post.author.profile.profile_pic.url}}" width=300>
+{% else %}
+				<img src="{% static 'theblog/image'/default_profile_pic.png' %}" width=300 class="card-img">
+{% endif %}
+			</div>
+			<div class="col-md-10">
+				<div class="card-body">
+					<h1 class="card-title">{{post.author.first_name}}&nbsp;{{ post.author.last_name}}</h1>
+					<p class="small text-muted">
+						<a href="bradshawwebsites.ie">MY  WEBSITE -</a>
+						<a href="http://www.facebook.com">MY FACEBOOK -</a>
+						<a href="http://www.instragram.com">MY INSTRAGRAM</a>
+					</p>
+<BR>
+		<br>
+		<br>
+
+			<p class="small text-muted">
+				{%	if post.author.profile.profile%}
+					<a href="{% url 'show_profile_page' post.author.profile.id %}">MY  PROFILE  Correct?</a>
+					{%	endif%}
+
+		<p class="small text-muted">
+		{%	if post.author.profile.website%}
+			<a href="{{ post.author.profile.website_url}}">MY  WEBSITE -</a>
+			{%	endif%}
+
+			{%	if post.author.profile.facebook%}
+			<a href="{{ post.author.profile.facebook_url}}">MY FACEBOOK -</a>
+			{%	endif%}
+
+			{%	if post.author.profile.instragram%}
+			<a href="{{ post.author.profile.instragram_url}}">MY INSTRAGRAM</a>
+			{%	endif%}
+		</p>
+
+					<p class="card-text">{{post.author.profile.bio}}</p>
+				
+				</div>
+			</div>
+		</div>
+	</div>

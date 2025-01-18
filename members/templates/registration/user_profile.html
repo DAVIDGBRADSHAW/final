@@ -1,0 +1,98 @@
+{% extends 'base.html'%}
+
+{% block content%}
+
+<h1> pofile page .......</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{post.title_tag}}{% endblock %}
+	
+	{% block content %}
+	
+			<h1> {{post.title}}&nbsp;--&nbsp;</h1>
+			<small>BY: {{post.author.first_name}}&nbsp;{{post.author.last_name}}--
+				{{ post.post_date}}
+			</small>
+			<br><br>
+			{% if user.is_authenticated %}
+				{% if user.id == post.author.id %}
+						-<a href="{% url 'update_post' post.pk %}">EDIT</a>
+			<br><br>
+						-<a href="{% url 'delete_post'  post.pk %}">DELETE</a>
+			<br><br>
+					{% endif %}
+			{% endif %}
+			<br/>
+			{% if post.header_image %}
+				<img src="{{ post.header_image.url }}">
+			{% endif %}
+			<br><br>
+			{{post.body|safe}}</li>
+			<br>
+			<br>
+			<a href="{% url 'home'%}" class="btn btn-secondary">BACK</a>
+			<br><br>
+			<form action="{% url 'like_post' post.pk %}" method="POST">
+					{% csrf_token%}
+
+			{% if user.is_authenticated %}
+				{% if liked %}
+<button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger btn-sm">Unlike</button> 
+{% else %}
+<button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary btn-sm">Like</button> 
+
+{% endif%}
+{% else %}
+PLEASE LOG IN TO LIKE  THIS POST	<a href="{% url 'login'%}">LOGIN</a>
+{% endif %}
+
+-- {{total_likes}}&nbsp;&nbsp;LIKES
+</form>
+<br><br>
+	<img src="{{ post.author.profile.profile_pic.url}}" width="300" class="rounded-circle">
+	<div class="card mb-3" style="max-width: 1040px;">
+		<div class="row no-gutters">
+			<div class="col-md-3">
+{% if  page_user.profile.profile_pic%}
+				<img src="{{ page_user.author.profile.profile_pic.url}}" width=300>
+{% else %}
+				<img src="{% static 'theblog/image'/default_profile_pic.png' %}" class="card-img">
+{% endif %}
+			</div>
+			<div class="col-md-10">
+				<div class="card-body">
+					<h1 class="card-title">{{page_user.user.first_name}}&nbsp;{{ page_user.user.last_name}}</h1>
+					<p class="small text-muted">
+						<a href="bradshawwebsites.ie">MY  WEBSITE -</a>
+						<a href="http://www.facebook.com">MY FACEBOOK -</a>
+						<a href="http://www.instragram.com">MY INSTRAGRAM</a>
+					</p>
+<BR>
+		<br>
+		<br>
+		<p class="small text-muted">
+		{%	if page_user.profile.profile%}
+			
+
+		<p class="small text-muted">
+		{%	if page_user.website_url%}
+			<a href="{{ page_user.website_url}}">MY  WEBSITE -</a>
+			{%	endif%}
+
+			{%	if page_user.facebook_url %}
+			<a href="{{ page_user.facebook_url}}">MY FACEBOOK -</a>
+			{%	endif%}
+
+			{%	if page_user.profile.instragram%}
+			<a href="{{ page_user.instragram_url}}">MY INSTRAGRAM</a>
+			{%	endif%}
+		</p>
+
+					<p class="card-text">{{page_user.bio}}</p>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+{{page_user}}
+{% endblock'%}<#

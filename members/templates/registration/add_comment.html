@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+			{% block title %}
+		Create a NEW BLOG
+			{% endblock %}
+		
+		
+	{% block content %}
+
+{% if user.is_authenticated %}
+
+			<h1> ADD  POST</h1>
+		<br><br>
+		<div class="form-group">
+			<form method="POST">
+<!-- enctype="multipart/form-data">   no photos allowe in comments-->
+				{% csrf_token %}
+	<!--			{{ form.media }}  no photos allowed-->
+				{{ form.as_p }}
+				<br>
+				<button class="btn btn-secondary">ADD COMMENT</button>
+			</form>
+		</div>
